@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Buggy Calculator</title>
+		<meta name="description" content="XSS CTF Challenge with cash prizes! Brought to you by bugpoc.com. Submit solutions to hackerone.com/bugpoc.">
+		<link rel="shortcut icon" type="image/x-icon" href="http://calc.buggywebsite.com/favicon-32x32.png">
+		
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="http://calc.buggywebsite.com/" />
+		<meta property="og:title" content="Buggy Calculator XSS Challenge" />
+		<meta property="og:description" content="XSS CTF Challenge with cash prizes! Brought to you by bugpoc.com. Submit solutions to hackerone.com/bugpoc." />
+		<meta property="og:image" content="http://calc.buggywebsite.com/ctf-info.png" />
+		
+		<meta property="twitter:card" content="summary_large_image">
+		<meta property="twitter:url" content="http://calc.buggywebsite.com/">
+		<meta property="twitter:title" content="Buggy Calculator XSS Challenge">
+		<meta property="twitter:description" content="XSS CTF Challenge with cash prizes! Brought to you by bugpoc.com. Submit solutions to hackerone.com/bugpoc.">
+		<meta property="twitter:image" content="http://calc.buggywebsite.com/ctf-info.png">
+		
+		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	 	<link href='https://fonts.googleapis.com/css?family=Keania+One' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="style.css">
+
+
+		<meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-eval' 'self'; object-src 'none'">
+		
+	</head>
+	<body ng-app="Calculator" ng-cloak>
+		<div class="wrapper">
+		
+		<div ng-controller="ArthmeticController" class="container">
+		
+		
+			<div class="display-container">
+				<p class="casio">CASIO</p>
+				<div class="solar">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<span class="model"><i>fx</i>-85MS</span>
+				<p class="display">
+				
+				<iframe name="theiframe" style="height:65px;width:100%; left:-100px; margin-top:-05px;margin-bottom:-30px;" frameBorder="0" src="frame.html"></iframe>
+
+				
+				</p>
+			</div>
+			
+			<div class="input-container">
+				<div class="commandNum-container">
+					<div class="command-container">
+						<button ng-click="command('Off')">OFF</button>
+						<button ng-repeat="i in ['%','DEL']" ng-click="command(i)" ng-disabled="isOff">{{ i }}</button>
+					</div>
+					
+					<div class="number-container calc-container">
+						<button ng-repeat="i in [7,8,9]" ng-click="updateCurrNum(i)" ng-disabled="isOff">{{ i }}</button></br>
+						<button ng-repeat="i in [4,5,6]" ng-click="updateCurrNum(i)" ng-disabled="isOff">{{ i }}</button></br>
+						<button ng-repeat="i in [3,2,1]" ng-click="updateCurrNum(i)" ng-disabled="isOff">{{ i }}</button></br>
+						<button class="zero" ng-click="updateCurrNum(0)" ng-disabled="isOff">0</button>
+						<button ng-click="addDecimal()" ng-disabled="isFloat" ng-disabled="isOff">.</button>
+						<button ng-click="calculate()" ng-disabled="isOff">=</button>
+					</div>
+				</div>
+				
+				<div class="operator-container calc-container">
+					<span ng-repeat="i in ['AC', '+','-','*','/']" ng-disabled="isOff" ng-click="concatOperator(i)">
+						<button >{{ i }}</button>
+						</br>
+					</span>
+				</div>	
+			</div>			
+
+		</div>
+		
+		</div>
+
+		<script src="angular.min.js"></script>
+		<script src="jquery.min.js"></script>
+		<script src="script.js"></script>
+		
+	</body>
+
+	<iframe src="https://buggy-calc-analytics.s3-us-west-2.amazonaws.com/analytics.html" style="width:0;height:0;border:0; border:none;"></iframe>
+	
+</html>
